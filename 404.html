@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>404 · 页面走丢了 | 你的名字</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#2563eb">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="180x180" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<link rel="stylesheet" href="/style.css?v=2">
+
+<!-- 404 与彩蛋专属样式，只作用于本页 -->
+<style>
+  .nf-wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 96px 24px 72px;
+    text-align: center;
+  }
+  .nf-wrap[hidden] { display: none; }
+
+  /* ---- 会呼吸的 404 ---- */
+  .nf-code {
+    position: relative;
+    display: inline-block;
+    font-size: clamp(88px, 23vw, 168px);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -.05em;
+    margin-bottom: 4px;
+    color: var(--accent);
+    animation: nf-float 3.6s ease-in-out infinite;
+  }
+  .nf-code::after {
+    content: '';
+    position: absolute;
+    top: -18%; right: -12%; bottom: -18%; left: -12%;
+    z-index: -1;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, var(--accent-soft), transparent 72%);
+  }
+  @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    .nf-code {
+      background: linear-gradient(120deg, var(--accent), #8b5cf6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+  }
+  @keyframes nf-float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-9px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .nf-code { animation: none; }
+    .egg-badge { animation: none; }
+  }
+
+  .nf-title { font-size: clamp(20px, 4vw, 26px); margin: 0 0 14px; letter-spacing: -.2px; }
+  .nf-sub   { color: var(--muted); font-size: 15.5px; margin: 0 0 32px; }
+
+  .nf-actions {
+    display: flex; gap: 12px; justify-content: center;
+    flex-wrap: wrap; margin-bottom: 44px;
+  }
+
+  .nf-links {
+    width: 100%; padding-top: 26px;
+    border-top: 1px solid var(--line);
+    display: flex; flex-wrap: wrap; gap: 10px;
+    align-items: center; justify-content: center; font-size: 14px;
+  }
+  .nf-links > span { color: var(--muted); }
+  .nf-links a {
+    padding: 6px 15px; border-radius: 999px;
+    background: var(--bg-soft); border: 1px solid var(--line);
+    color: var(--fg); transition: color .15s ease, border-color .15s ease;
+  }
+  .nf-links a:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+
+  /* ================= 彩蛋（蜜罐） ================= */
+  .egg-wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 72px 24px 80px;
+    text-align: center;
+  }
+  .egg-wrap[hidden] { display: none; }
+
+  .egg-badge {
+    display: inline-flex;
+    align-items: center; justify-content: center;
+    color: var(--accent);
+    margin-bottom: 14px;
+    animation: nf-float 3s ease-in-out infinite;
+  }
+  .egg-badge svg { display: block; width: 62px; height: 62px; }
+  .egg-title {
+    font-size: clamp(26px, 5vw, 40px);
+    margin: 0 0 14px; letter-spacing: -.5px;
+  }
+  .egg-sub {
+    color: var(--muted); font-size: 15.5px;
+    max-width: 560px; margin: 0 auto 8px;
+  }
+  .egg-sub code {
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: 14px; padding: 2px 8px; border-radius: 6px;
+    background: var(--bg-soft); border: 1px solid var(--line);
+    color: var(--accent); word-break: break-all;
+  }
+
+  .egg-section-title {
+    margin: 40px 0 14px;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .egg-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    text-align: left;
+  }
+  .egg-row {
+    display: flex; align-items: baseline; gap: 10px;
+    padding: 10px 14px;
+    background: var(--bg);
+    font-size: 13.5px;
+  }
+  .egg-k {
+    flex: none; width: 84px;
+    color: var(--muted); font-size: 12.5px;
+  }
+  .egg-v {
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 13px; color: var(--fg);
+    word-break: break-all; line-height: 1.5;
+  }
+  .egg-v.warn { color: var(--accent); font-weight: 600; }
+  .egg-v.dim  { color: var(--muted); }
+
+  .egg-foot {
+    margin: 32px 0 0;
+    padding: 18px 20px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    color: var(--muted); font-size: 14px; line-height: 1.8;
+    text-align: left;
+  }
+  .egg-foot strong { color: var(--fg); }
+
+  @media (max-width: 560px) {
+    .nf-wrap  { padding: 64px 20px 48px; }
+    .egg-wrap { padding: 48px 20px 56px; }
+    .nf-actions { margin-bottom: 36px; }
+    .egg-grid { grid-template-columns: 1fr; }
+    .egg-row  { flex-direction: column; gap: 2px; }
+    .egg-k    { width: auto; }
+    .egg-badge svg { width: 48px; height: 48px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="/">你的名字</a>
+    <nav class="nav-links">
+      <a href="/#about">关于</a>
+      <a href="/#projects">项目</a>
+      <a href="/#skills">技能</a>
+      <a href="/#contact">联系</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ 普通 404 ============ -->
+<main class="nf-wrap" id="nf-normal">
+  <div class="nf-code" aria-hidden="true">404</div>
+  <h1 class="nf-title">这个页面走丢了</h1>
+  <p class="nf-sub">
+    你访问的地址不存在，或者已经被移动了。<br>
+    可能是链接打错了，也可能是我调整过路径。
+  </p>
+
+  <div class="nf-actions">
+    <a class="btn primary" href="/">回到首页</a>
+    <a class="btn ghost" href="/#contact">联系我</a>
+  </div>
+
+  <nav class="nf-links">
+    <span>或者去这些地方看看：</span>
+    <a href="/#about">关于我</a>
+    <a href="/#projects">项目</a>
+    <a href="/#skills">技能</a>
+    <a href="/#contact">联系方式</a>
+  </nav>
+</main>
+
+<!-- ============ 彩蛋：扫描器捕获报告 ============ -->
+<main class="egg-wrap" id="egg" hidden>
+  <div class="egg-badge" aria-hidden="true">
+    <!-- 放大镜图标（内联 SVG，不用 emoji） -->
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="10.5" cy="10.5" r="6.6"></circle>
+      <line x1="15.7" y1="15.7" x2="21" y2="21"></line>
+    </svg>
+  </div>
+  <h1 class="egg-title">抓到你了</h1>
+  <p class="egg-sub">
+    你刚刚访问的 <code id="egg-path">/admin</code> 并不存在——<br>
+    因为这个网站是纯静态的，没有后台、没有数据库、没有 PHP。
+  </p>
+
+  <h2 class="egg-section-title">我们记录到的信息</h2>
+  <div class="egg-grid" id="egg-grid"></div>
+
+  <h2 class="egg-section-title" id="egg-dev-title">你的设备</h2>
+  <div class="egg-grid" id="egg-device"></div>
+
+  <div class="egg-foot">
+    <p style="margin:0 0 10px">
+      <strong>顺手提醒一句：</strong>上面这些信息，是任何网站都能看到的。
+      你在扫描别人的站点时，自己也正被对方一笔一笔记下来。
+    </p>
+    <p style="margin:0">
+      这个网站是纯静态页面，源码就是你在浏览器里看到的这些。
+    </p>
+  </div>
+
+  <div class="nf-actions" style="margin:28px 0 0">
+    <a class="btn primary" href="/">回到首页</a>
+  </div>
+</main>
+
+<footer class="footer wrap">
+  <p>© <span id="year">2026</span> 你的名字的个人网站 · 由 Cloudflare Pages 托管</p>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* ================= 探测路径识别 ================= */
+  // 用 IIFE 包起来，非探测情况直接 return，不给控制台留报错
+  (function () {
+  // 命中任意一条，就展示彩蛋。列表刻意做得宽，不局限于 /admin。
+  const PROBE = new RegExp([
+    // 后台 / 管理入口
+    '(^|/)(admin|administrator|admincp|admin1|adminpanel|manage|manager|management|dashboard|console|controlpanel|cp|sysadmin)(/|\\.|$)',
+    // 常见 CMS
+    'wp-(admin|login|content|includes|json|config|signup|register)',
+    'xmlrpc\\.php',
+    '(^|/)(wordpress|joomla|drupal|typo3|magento|discuz|dedecms|phpcms|ecshop|shopex|zblog)(/|\\.|$)',
+    // 数据库 / 运维面板
+    '(^|/)(phpmyadmin|pma|myadmin|mysql|sqladmin|adminer|dbadmin|postgres|redis|mongo)(/|\\.|$)',
+    '(^|/)(cpanel|webmail|plesk|whm|directadmin|宝塔|btwaf)(/|\\.|$)',
+    // 敏感文件
+    '(^|/)\\.(env|git|svn|hg|aws|ssh|htaccess|htpasswd|npmrc|dockercfg|DS_Store)',
+    '\\.(env|bak|old|backup|sql|sqlite|sqlite3|dump|pem|key|p12|jks|log|ini|conf|cfg|yml|yaml)(/|\\.|$)',
+    // 框架 / 中间件探测
+    '(^|/)(actuator|solr|jenkins|hudson|zabbix|grafana|kibana|elasticsearch|swagger|swagger-ui|api-docs|graphql|consul|nacos|eureka|druid)(/|\\.|$)',
+    'server-status', 'manager/html', 'robots\\.txt\\.(bak|old|save|swp|txt)',
+    // 脚本类文件（纯静态站不可能存在）
+    '\\.(php|phtml|php[0-9]|asp|aspx|ashx|asmx|jsp|jspx|do|action|cgi|pl|py|rb|sh|bash)$',
+    // webshell / 扫描器常见词
+    '(^|/)(shell|webshell|shells|cmd|exec|eval|backdoor|upload|uploads|hack|hacked|defacer|c99|r57|b374k)(/|\\.|$)',
+    // 备份 / 源码泄露探测
+    '(^|/)(backup|backups|db|database|dump|data|old|new|temp|tmp|test|tests|demo|cache|priv|private|secret|secrets|config|configs)(/|\\.|$)',
+    '\\.(zip|tar|tar\\.gz|tgz|rar|7z|gz)$',
+    // 账号 / 鉴权
+    '(^|/)(login|signin|signup|register|logout|account|accounts|auth|oauth|token|tokens|sso|saml|ldap)(/|\\.|$)',
+    // 依赖目录
+    '(^|/)(node_modules|vendor|composer\\.json|composer\\.lock|package\\.json|package-lock\\.json|yarn\\.lock)',
+    // 其它常见扫描目标
+    '(^|/)(info\\.php|phpinfo|test\\.php|sitemap\\.xml|crossdomain\\.xml|clientaccesspolicy\\.xml)'
+  ].join('|'), 'i');
+
+  const probedPath = location.pathname + location.search;
+
+  if (PROBE.test(probedPath)) {
+    document.getElementById('nf-normal').hidden = true;
+    const egg = document.getElementById('egg');
+    egg.hidden = false;
+    document.getElementById('egg-path').textContent = probedPath;
+    document.title = '抓到你了 | 你的名字';
+  } else {
+    // 不是探测行为：保持普通 404 的样子，后面的彩蛋逻辑一点都不执行
+    return;
+  }
+
+  /* ================= 工具函数 ================= */
+  const $ = id => document.getElementById(id);
+  const pad = n => (n < 10 ? '0' : '') + n;
+
+  function buildGrid(el, rows) {
+    rows.forEach(([k, v, cls]) => {
+      if (v === undefined || v === null || v === '' || v === 'undefined') return;
+      const row = document.createElement('div');
+      row.className = 'egg-row';
+      const kk = document.createElement('span');
+      kk.className = 'egg-k';
+      kk.textContent = k;
+      const vv = document.createElement('code');
+      vv.className = 'egg-v' + (cls ? ' ' + cls : '');
+      vv.textContent = v;
+      row.appendChild(kk);
+      row.appendChild(vv);
+      el.appendChild(row);
+    });
+  }
+
+  // 两列布局下条目数为奇数时，末尾会露出一格容器底色 —— 补个空单元格填掉
+  function padGrid(el) {
+    if (!window.matchMedia('(min-width: 620px)').matches) return;
+    if (el.children.length % 2 === 1) {
+      const filler = document.createElement('div');
+      filler.className = 'egg-row';
+      filler.setAttribute('aria-hidden', 'true');
+      el.appendChild(filler);
+    }
+  }
+
+  const COUNTRY = {
+    CN: '中国', HK: '中国香港', TW: '中国台湾', MO: '中国澳门',
+    US: '美国', JP: '日本', KR: '韩国', SG: '新加坡', MY: '马来西亚',
+    TH: '泰国', VN: '越南', ID: '印度尼西亚', PH: '菲律宾', IN: '印度',
+    GB: '英国', DE: '德国', FR: '法国', NL: '荷兰', RU: '俄罗斯',
+    CA: '加拿大', AU: '澳大利亚', BR: '巴西', IT: '意大利', ES: '西班牙',
+    SE: '瑞典', CH: '瑞士', PL: '波兰', TR: '土耳其', AE: '阿联酋'
+  };
+  const countryName = cc => (COUNTRY[cc] || cc || '未知');
+  function flag(cc) {
+    if (!cc || cc.length !== 2) return '';
+    return String.fromCodePoint(...cc.toUpperCase().split('')
+      .map(c => 0x1F1E6 + c.charCodeAt(0) - 65));
+  }
+
+  /* ================= 设备信息 ================= */
+  const ua = navigator.userAgent;
+  const touch = (navigator.maxTouchPoints || 0) > 1;
+  const isIPad = /iPad/.test(ua) || (/Macintosh/.test(ua) && touch);
+  const isTablet = isIPad || /Tablet|PlayBook|Silk/i.test(ua) ||
+                   (/Android/i.test(ua) && !/Mobile/i.test(ua));
+  const isPhone = !isTablet &&
+                  /Android|iPhone|iPod|Windows Phone|IEMobile|BlackBerry|Opera Mini/i.test(ua);
+  const deviceType = isTablet ? '平板' : (isPhone ? '手机' : '电脑');
+
+  const osName = (() => {
+    if (/Windows NT 10\.0/.test(ua)) return 'Windows 10 / 11';
+    if (/Windows NT 6\.3/.test(ua))  return 'Windows 8.1';
+    if (/Windows NT 6\.1/.test(ua))  return 'Windows 7';
+    if (/Windows/.test(ua))          return 'Windows';
+    if (isIPad || /iPhone|iPod/.test(ua)) {
+      const m = ua.match(/OS (\d+)[_.](\d+)/);
+      return (isIPad ? 'iPadOS' : 'iOS') + (m ? ` ${m[1]}.${m[2]}` : '');
+    }
+    if (/Android/.test(ua)) {
+      const m = ua.match(/Android (\d+(?:\.\d+)?)/);
+      return 'Android' + (m ? ' ' + m[1] : '');
+    }
+    if (/Mac OS X/.test(ua)) {
+      const m = ua.match(/Mac OS X (\d+)[_.](\d+)/);
+      return 'macOS' + (m ? ` ${m[1]}.${m[2]}` : '');
+    }
+    if (/CrOS/.test(ua))  return 'ChromeOS';
+    if (/Linux/.test(ua)) return 'Linux';
+    return '未知系统';
+  })();
+
+  // 浏览器识别必须按「优先级」逐个试，不能写成一个大正则：
+  // Edge 的 UA 里 Chrome/xxx 出现在 Edg/xxx 之前，用单个正则按位置匹配
+  // 会永远命中 Chrome。所以要从最特殊的开始试。
+  const browser = (() => {
+    const tests = [
+      [/Edg\/([\d.]+)/, 'Edge'],
+      [/EdgA\/([\d.]+)/, 'Edge'],
+      [/OPR\/([\d.]+)/, 'Opera'],
+      [/SamsungBrowser\/([\d.]+)/, 'Samsung Internet'],
+      [/Firefox\/([\d.]+)/, 'Firefox'],
+      [/Chrome\/([\d.]+)/, 'Chrome'],
+      [/Version\/([\d.]+).*Safari/, 'Safari']
+    ];
+    for (const [re, name] of tests) {
+      const m = ua.match(re);
+      if (m) return name + ' ' + m[1].split('.')[0];
+    }
+    return '未知浏览器';
+  })();
+
+  const tz = (() => {
+    try { return Intl.DateTimeFormat().resolvedOptions().timeZone; } catch (e) { return ''; }
+  })();
+
+  const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+
+  buildGrid($('egg-device'), [
+    ['设备类型', deviceType],
+    ['操作系统', osName],
+    ['浏览器',   browser],
+    ['屏幕分辨率', screen.width + ' × ' + screen.height +
+                  (devicePixelRatio > 1 ? '  @' + devicePixelRatio + 'x' : '')],
+    ['窗口尺寸', window.innerWidth + ' × ' + window.innerHeight],
+    ['CPU 核心', navigator.hardwareConcurrency ? navigator.hardwareConcurrency + ' 核' : '未公开'],
+    ['设备内存', navigator.deviceMemory ? '约 ' + navigator.deviceMemory + ' GB' : '未公开'],
+    ['触点数量', String(navigator.maxTouchPoints || 0)],
+    ['界面语言', navigator.language + (navigator.languages ? '  (' + navigator.languages.slice(0, 3).join(', ') + ')' : '')],
+    ['时区',     tz || '未知'],
+    ['本地时间', new Date().toLocaleString('zh-CN')],
+    ['北京时间', (() => {
+      const d = new Date(Date.now() + 8 * 3600 * 1000);
+      return `${d.getUTCFullYear()}-${pad(d.getUTCMonth()+1)}-${pad(d.getUTCDate())} ` +
+             `${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:${pad(d.getUTCSeconds())}`;
+    })()],
+    ['网络状态', navigator.onLine ? '在线' : '离线'],
+    ['连接类型', conn && conn.effectiveType ? conn.effectiveType.toUpperCase() : '未公开']
+  ]);
+  padGrid($('egg-device'));
+
+  /* ================= 位置信息 ================= */
+  // 优先用自家 Pages Function 读 Cloudflare 的 request.cf（能到城市级），
+  // 拿不到就退回 /cdn-cgi/trace（只有国家级）。
+  const grid = $('egg-grid');
+
+  function renderGeo(g, source) {
+    const cc = g.country || '';
+    let place = countryName(cc);
+    if (g.region || g.city) {
+      place = [countryName(cc), g.region, g.city].filter(Boolean).join(' · ');
+    }
+    if (cc) place = flag(cc) + ' ' + place;
+
+    const rows = [
+      ['IP 地址', g.ip || '未获取', 'warn'],
+      ['归属地',  place || '未知'],
+      ['运营商',  g.asOrganization ? g.asOrganization + (g.asn ? ' (AS' + g.asn + ')' : '') : '未知'],
+      ['经纬度',  (g.latitude && g.longitude) ? g.latitude + ', ' + g.longitude : '未获取'],
+      ['邮编',    g.postalCode],
+      ['大洲',    g.continent],
+      ['时区',    g.timezone]
+    ];
+    buildGrid(grid, rows);
+
+    const net = [];
+    if (g.colo) net.push(['边缘节点', g.colo]);
+    if (g.httpProtocol) net.push(['协议', g.httpProtocol + (g.tlsVersion ? ' / ' + g.tlsVersion : '')]);
+    if (g.clientTcpRtt) net.push(['网络延迟', g.clientTcpRtt + ' ms']);
+    if (net.length) buildGrid(grid, net);
+  }
+
+  async function getGeo() {
+    // ① 自家 Pages Function
+    try {
+      const r = await fetch('/api/geo', { cache: 'no-store' });
+      if (r.ok) {
+        const j = await r.json();
+        if (j && j.ip) return { data: j, source: 'function' };
+      }
+    } catch (e) { /* 忽略，继续降级 */ }
+
+    // ② Cloudflare 自带的 trace 接口
+    try {
+      const r = await fetch('/cdn-cgi/trace', { cache: 'no-store' });
+      if (r.ok) {
+        const t = await r.text();
+        const d = {};
+        t.split('\n').forEach(line => {
+          const i = line.indexOf('=');
+          if (i > 0) d[line.slice(0, i)] = line.slice(i + 1).trim();
+        });
+        if (d.ip) return { data: { ip: d.ip, country: d.loc, colo: d.colo, httpProtocol: d.http }, source: 'trace' };
+      }
+    } catch (e) { /* 忽略 */ }
+
+    return null;
+  }
+
+  getGeo().then(res => {
+    if (res) {
+      renderGeo(res.data, res.source);
+      if (res.source === 'trace') {
+        const tip = document.createElement('div');
+        tip.className = 'egg-row';
+        tip.innerHTML = '<span class="egg-k">说明</span>' +
+          '<code class="egg-v dim">仅取到国家级归属（城市级需要 /api/geo 函数）</code>';
+        grid.appendChild(tip);
+      }
+    } else {
+      buildGrid(grid, [['IP 地址', '获取失败', 'dim'], ['归属地', '获取失败', 'dim']]);
+    }
+    // 必须等「所有」行都追加完（包括下面的「说明」行）再补空格子，
+    // 否则补完又被追加一行，末尾照样会露出容器底色
+    padGrid(grid);
+  });
+  })();
+</script>
+</body>
+</html>

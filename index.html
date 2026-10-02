@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>你的名字 · 个人主页</title>
+<meta name="description" content="你的名字的个人主页：简介、项目与联系方式。">
+<meta name="theme-color" content="#2563eb">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="180x180" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<link rel="stylesheet" href="style.css?v=2">
+<meta property="og:title" content="你的名字 · 个人主页">
+<meta property="og:description" content="你的名字的个人主页：简介、项目与联系方式。">
+<meta property="og:type" content="website">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">你的名字的个人主页</a>
+    <nav class="nav-links">
+      <a href="#about">关于</a>
+      <a href="#projects">项目</a>
+      <a href="#skills">技能</a>
+      <a href="#contact">联系</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ========== 首屏 ========== -->
+  <section class="hero wrap">
+    <h1 class="hero-title">你好，我是 <span class="grad">你的名字</span></h1>
+    <p class="hero-sub">
+    全栈开发者 / 开源爱好者 / 在读学生
+    </p>
+    <div class="hero-actions">
+      <a class="btn primary" href="#projects">看看我的项目</a>
+      <a class="btn ghost" href="#contact" id="hero-mail">发邮件给我</a>
+    </div>
+  </section>
+
+  <!-- ========== 关于 ========== -->
+  <section id="about" class="wrap section reveal">
+    <h2>关于我</h2>
+    <p>
+      这里写 2–4 句自我介绍：你现在在做什么、擅长什么、做过什么
+      值得说的事，以及接下来想做什么。写具体的事实比写形容词有效。
+    </p>
+  </section>
+
+  <!-- ========== 项目 ========== -->
+  <section id="projects" class="wrap section reveal">
+    <h2>项目</h2>
+    <div class="grid">
+
+      <article class="card">
+        <div class="card-top">
+          <h3>项目名称一</h3>
+          <span class="tag">项目类型</span>
+        </div>
+        <p>一句话说明这个项目解决了什么问题、你负责了哪部分、用了什么技术栈。</p>
+        <div class="links">
+          <a href="#" target="_blank" rel="noopener">查看项目 →</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-top">
+          <h3>项目名称二</h3>
+          <span class="tag">项目类型</span>
+        </div>
+        <p>同上，一两句话说清楚就够了。没有链接的话，把下面那行删掉。</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ========== 技能 ========== -->
+  <section id="skills" class="wrap section reveal">
+    <h2>我会点什么？</h2>
+    <ul class="chips">
+      <li>JavaScript</li>
+      <li>Python</li>
+      <li>Git</li>
+      <li>Linux</li>
+      <li>SQL</li>
+    </ul>
+  </section>
+
+  <!-- ========== 联系 ========== -->
+  <section id="contact" class="wrap section reveal">
+    <h2>联系我</h2>
+    <p>欢迎交流合作，通常 24 小时内回复。</p>
+
+    <!-- 联系方式默认收起：静态 HTML 里不含任何明文，
+         必须点击后由 JS 解码填入，用来挡住「正则扫一遍 HTML」式的爬虫。 -->
+    <div class="contact-gate" id="contact-gate">
+      <button class="btn primary" type="button" id="reveal-contact">点击显示联系方式</button>
+      <span class="gate-tip">为防止被爬虫采集，联系方式默认隐藏</span>
+    </div>
+
+    <ul class="contact-list" id="contact-list" hidden>
+      <li><span>Email</span><a id="c-email" href="#">&nbsp;</a></li>
+      <li><span>GitHub</span><a id="c-github" href="#" target="_blank" rel="noopener">&nbsp;</a></li>
+      <li>
+        <span>微信</span>
+        <div class="wx">
+          <code id="wx-id"></code>
+          <span class="wx-hint">鼠标悬停看二维码</span>
+          <button class="copy-btn" type="button" id="c-copy">复制微信号</button>
+          <div class="qr-pop">
+            <img src="wechat-qr.png" alt="我的微信二维码" width="132" height="132">
+            <em>微信扫码加我</em>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ========== 访问信息（由 JS 填充，JS 不可用时不显示） ========== -->
+  <section class="wrap visitor" id="visitor" aria-label="访问信息" hidden>
+    <ul class="visitor-list">
+      <li><span>你的 IP</span><code id="v-ip">获取中…</code></li>
+      <li><span>北京时间</span><code id="v-time">—</code></li>
+      <li><span>设备</span><code id="v-device">—</code></li>
+      <li><span>系统</span><code id="v-os">—</code></li>
+    </ul>
+  </section>
+
+</main>
+
+<footer class="footer wrap">
+  <p>© <span id="year">2025</span> 你的名字的个人网站 · 由 Cloudflare Pages 托管</p>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // 滚动淡入
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // 点击复制微信号
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const text = btn.dataset.copy;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        // 本地双击打开(file://)时 clipboard 可能不可用，用老办法兜底
+        const ta = document.createElement('textarea');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); ta.remove();
+      }
+      btn.textContent = '已复制';
+      btn.classList.add('done');
+      setTimeout(() => { btn.textContent = '复制微信号'; btn.classList.remove('done'); }, 1600);
+    });
+  });
+
+  // 还没放 wechat-qr.png 时，自动降级为「电脑端也显示复制按钮」
+  const qr = document.querySelector('.qr-pop img');
+  if (qr) {
+    qr.addEventListener('error', () => document.documentElement.classList.add('no-qr'));
+    if (qr.complete && qr.naturalWidth === 0) document.documentElement.classList.add('no-qr');
+  }
+
+  /* ================= 联系方式：点击后才解码显示 =================
+     明文不写进 HTML，改用 base64 存在这里，用来躲开
+     「正则扫一遍 HTML 就完事」的那类采集器。
+
+     注意：base64 是「编码」不是「加密」。能执行 JS 的爬虫照样拿得到，
+     它挡的是批量扫源码的采集器，不是有备而来的定向抓取。
+
+     要改内容：浏览器控制台执行 btoa('你的新内容')，
+     把输出的字符串替换到下面即可。 */
+  const CONTACT_B64 = {
+    email:  'eW91QGV4YW1wbGUuY29t',
+    github: 'eW91cm5hbWU=',
+    wechat: 'eW91cl93ZWNoYXRfaWQ='
+  };
+  const b64d = s => { try { return atob(s); } catch (e) { return ''; } };
+
+  (function () {
+    const gate = document.getElementById('contact-gate');
+    const list = document.getElementById('contact-list');
+    const btn  = document.getElementById('reveal-contact');
+    if (!gate || !list || !btn) return;
+
+    // 首屏那个「发邮件给我」按钮同样不能把邮箱写进 HTML，点击时才解码打开
+    const heroMail = document.getElementById('hero-mail');
+    if (heroMail) {
+      heroMail.addEventListener('click', ev => {
+        const email = b64d(CONTACT_B64.email);
+        if (!email) return;                 // 解码失败就走默认的锚点跳转
+        ev.preventDefault();
+        location.href = 'mailto:' + email;
+      });
+    }
+
+    btn.addEventListener('click', () => {
+      const email  = b64d(CONTACT_B64.email);
+      const github = b64d(CONTACT_B64.github);
+      const wechat = b64d(CONTACT_B64.wechat);
+
+      const aEmail = document.getElementById('c-email');
+      aEmail.href = 'mailto:' + email;
+      aEmail.textContent = email;
+
+      const aGh = document.getElementById('c-github');
+      aGh.href = 'https://github.com/' + github;
+      aGh.textContent = 'github.com/' + github;
+
+      document.getElementById('wx-id').textContent = wechat;
+      document.getElementById('c-copy').dataset.copy = wechat;
+
+      gate.hidden = true;
+      list.hidden = false;
+    });
+  })();
+
+  /* ========== 访问信息：IP / 北京时间 / 设备 / 系统 ========== */
+  (function () {
+    const $ = id => document.getElementById(id);
+    const ua = navigator.userAgent;
+
+    /* ---------- 1. 设备类型 ---------- */
+    const touch = (navigator.maxTouchPoints || 0) > 1;
+    // iPadOS 13+ 会把自己伪装成 Macintosh，靠触点数把它认出来
+    const isIPad   = /iPad/.test(ua) || (/Macintosh/.test(ua) && touch);
+    const isTablet = isIPad || /Tablet|PlayBook|Silk/i.test(ua) ||
+                     (/Android/i.test(ua) && !/Mobile/i.test(ua));
+    const isPhone  = !isTablet &&
+                     /Android|iPhone|iPod|Windows Phone|IEMobile|BlackBerry|Opera Mini/i.test(ua);
+    const device = isTablet ? '平板' : (isPhone ? '手机' : '电脑');
+
+    /* ---------- 2. 操作系统 ----------
+       注意：Chrome 的 UA 冻结策略会把系统版本固定成
+       Windows NT 10.0 / Mac OS X 10_15_7，所以版本号只能当参考。 */
+    const detectOS = () => {
+      if (/Windows NT 10\.0/.test(ua)) return 'Windows 10 / 11';
+      if (/Windows NT 6\.3/.test(ua))  return 'Windows 8.1';
+      if (/Windows NT 6\.1/.test(ua))  return 'Windows 7';
+      if (/Windows/.test(ua))          return 'Windows';
+      if (isIPad || /iPhone|iPod/.test(ua)) {
+        const m = ua.match(/OS (\d+)[_.](\d+)/);
+        return (isIPad ? 'iPadOS' : 'iOS') + (m ? ` ${m[1]}.${m[2]}` : '');
+      }
+      if (/Android/.test(ua)) {
+        const m = ua.match(/Android (\d+(?:\.\d+)?)/);
+        return 'Android' + (m ? ' ' + m[1] : '');
+      }
+      if (/Mac OS X/.test(ua)) {
+        const m = ua.match(/Mac OS X (\d+)[_.](\d+)/);
+        return 'macOS' + (m ? ` ${m[1]}.${m[2]}` : '');
+      }
+      if (/CrOS/.test(ua))  return 'ChromeOS';
+      if (/Linux/.test(ua)) return 'Linux';
+      return '未知系统';
+    };
+
+    $('v-device').textContent = device;
+    $('v-os').textContent = detectOS();
+    $('visitor').hidden = false;   // JS 可用才显示这一栏
+
+    /* ---------- 3. 北京时间（每秒刷新） ---------- */
+    let offset = 0;                // 本机时钟 与 Cloudflare 可信时间的偏差(ms)
+    const pad = n => (n < 10 ? '0' : '') + n;
+
+    // 用 UTC 取值再加 8 小时，等价于北京时间，且不依赖系统的时区/语言设置
+    const beijing = ms => {
+      const d = new Date(ms + 8 * 3600 * 1000);
+      return `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())} ` +
+             `${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:${pad(d.getUTCSeconds())}`;
+    };
+    const tick = () => { $('v-time').textContent = beijing(Date.now() + offset); };
+    tick();
+    setInterval(tick, 1000);
+
+    /* ---------- 4. 取 IP + 用 Cloudflare 边缘时间校正时钟 ---------- */
+    // /cdn-cgi/trace 是 Cloudflare 自带的同源接口：
+    // 不请求第三方、不把访客 IP 泄露给别人、国内也能访问。
+    const controller = window.AbortController ? new AbortController() : null;
+    const timer = setTimeout(() => { if (controller) controller.abort(); }, 6000);
+
+    fetch('/cdn-cgi/trace', controller ? { signal: controller.signal } : undefined)
+      .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
+      .then(text => {
+        clearTimeout(timer);
+        const data = {};
+        text.split('\n').forEach(line => {
+          const i = line.indexOf('=');
+          if (i > 0) data[line.slice(0, i)] = line.slice(i + 1).trim();
+        });
+        $('v-ip').textContent = data.ip || '获取失败';
+
+        const serverMs = parseFloat(data.ts) * 1000;
+        if (serverMs > 0) {
+          offset = serverMs - Date.now();   // 校正偏差（含极少网络延迟）
+          tick();
+          $('v-time').title = '时间来自 Cloudflare 边缘节点，已校正本机时钟误差';
+        }
+      })
+      .catch(() => {
+        clearTimeout(timer);
+        $('v-ip').textContent = '仅 Cloudflare 环境可用';
+      });
+  })();
+</script>
+</body>
+</html>

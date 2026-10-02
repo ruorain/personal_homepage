@@ -1,0 +1,20 @@
+# 系统与编辑器杂项
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+
+# 日志与临时文件
+*.log
+*.tmp
+
+# Cloudflare Wrangler（如果用 CLI 部署）
+.wrangler/
+node_modules/
+
+# 微信二维码：不想公开就别提交，把下面这行的 # 去掉
+# wechat-qr.png

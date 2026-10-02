@@ -1,0 +1,258 @@
+/* ===== 主题变量（自动跟随系统深浅色） ===== */
+:root {
+  --bg: #ffffff;
+  --bg-soft: #f6f7f9;
+  --fg: #16181d;
+  --muted: #5c6370;
+  --line: #e6e8ec;
+  --card: #ffffff;
+  --accent: #2563eb;
+  --accent-soft: rgba(37, 99, 235, .08);
+  --radius: 16px;
+  --shadow: 0 1px 2px rgba(16, 24, 40, .04), 0 10px 30px rgba(16, 24, 40, .06);
+  --maxw: 880px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0e1116;
+    --bg-soft: #141922;
+    --fg: #e9ecf1;
+    --muted: #98a2b3;
+    --line: #232a36;
+    --card: #151a23;
+    --accent: #79aaff;
+    --accent-soft: rgba(121, 170, 255, .12);
+    --shadow: 0 1px 2px rgba(0, 0, 0, .35), 0 10px 30px rgba(0, 0, 0, .4);
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.75 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", "Source Han Sans SC", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ===== 顶部导航 ===== */
+.nav {
+  position: sticky; top: 0; z-index: 20;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+.brand { font-weight: 700; color: var(--fg); letter-spacing: .2px; }
+.nav-links { display: flex; gap: 22px; font-size: 14.5px; }
+.nav-links a { color: var(--muted); }
+.nav-links a:hover { color: var(--fg); text-decoration: none; }
+
+/* ===== 首屏 ===== */
+.hero { padding: 88px 24px 72px; text-align: center; }
+.avatar {
+  width: 76px; height: 76px; margin: 0 auto 22px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), #8b5cf6);
+  color: #fff; font-size: 30px; font-weight: 700;
+  box-shadow: 0 10px 30px var(--accent-soft);
+}
+.hero-title { font-size: clamp(28px, 5vw, 44px); line-height: 1.25; margin: 0 0 16px; letter-spacing: -.5px; }
+.grad {
+  background: linear-gradient(120deg, var(--accent), #8b5cf6);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero-sub { max-width: 580px; margin: 0 auto 30px; color: var(--muted); font-size: 17px; }
+
+.hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn {
+  display: inline-block; padding: 11px 22px; border-radius: 999px;
+  font-size: 15px; font-weight: 600; border: 1px solid transparent;
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.btn:hover { text-decoration: none; transform: translateY(-1px); }
+.btn.primary { background: var(--accent); color: #fff; box-shadow: 0 6px 18px var(--accent-soft); }
+.btn.ghost { border-color: var(--line); color: var(--fg); background: var(--bg); }
+.btn.ghost:hover { background: var(--bg-soft); }
+
+.hero-meta {
+  list-style: none; display: flex; gap: 20px; justify-content: center;
+  flex-wrap: wrap; padding: 0; margin: 38px 0 0; color: var(--muted); font-size: 14.5px;
+}
+
+/* ===== 区块 ===== */
+.section { padding: 56px 24px; border-top: 1px solid var(--line); }
+.section h2 { font-size: 22px; margin: 0 0 20px; letter-spacing: -.2px; }
+.section p { color: var(--muted); margin: 0 0 16px; }
+.section p:last-child { margin-bottom: 0; }
+
+/* ===== 项目卡片 ===== */
+.grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.card {
+  background: var(--card); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow);
+  transition: transform .18s ease, border-color .18s ease;
+}
+.card:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
+.card-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+.card h3 { margin: 0; font-size: 16.5px; }
+.card p { color: var(--muted); font-size: 14.5px; margin: 0 0 16px; }
+.tag {
+  flex: none; font-size: 12px; padding: 3px 9px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent); font-weight: 600;
+}
+.links { display: flex; gap: 16px; font-size: 14px; font-weight: 600; }
+
+/* ===== 技能标签 ===== */
+.chips { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; padding: 0; margin: 0; }
+.chips li {
+  padding: 7px 15px; border-radius: 999px; font-size: 14px;
+  background: var(--bg-soft); border: 1px solid var(--line); color: var(--fg);
+}
+
+/* ===== 联系方式展示开关 ===== */
+.contact-gate {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
+  padding: 24px 0 6px;
+}
+.contact-gate[hidden] { display: none; }
+.gate-tip { color: var(--muted); font-size: 13px; }
+
+/* ===== 联系方式 ===== */
+.contact-list { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line); }
+.contact-list[hidden] { display: none; }
+.contact-list li {
+  display: flex; gap: 16px; align-items: baseline;
+  padding: 14px 2px; border-bottom: 1px solid var(--line); font-size: 15px;
+}
+/* 用「直接子元素」选择器，这样嵌在里面的 span 不会被误伤 */
+.contact-list li > span { flex: none; width: 78px; color: var(--muted); font-size: 14px; }
+
+/* ===== 微信：手机点按钮复制，电脑悬停看二维码 ===== */
+.contact-list .wx {
+  position: relative;
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+.contact-list .wx code {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 14.5px; padding: 3px 9px; border-radius: 7px;
+  background: var(--bg-soft); border: 1px solid var(--line); color: var(--fg);
+}
+.wx-hint { display: none; font-size: 12.5px; color: var(--muted); }
+
+.copy-btn {
+  font: inherit; font-size: 12.5px; line-height: 1;
+  padding: 6px 12px; cursor: pointer;
+  border: 1px solid var(--line); border-radius: 999px;
+  background: var(--bg-soft); color: var(--muted);
+  transition: color .15s ease, border-color .15s ease;
+}
+.copy-btn:hover { color: var(--fg); border-color: var(--accent); }
+.copy-btn.done  { color: var(--accent); border-color: var(--accent); }
+
+/* 二维码浮层：默认完全隐藏（手机端不需要） */
+.qr-pop { display: none; }
+
+/* 只有「真的有鼠标」的设备才启用悬停看码 */
+@media (hover: hover) and (pointer: fine) {
+  .contact-list .wx code { cursor: help; border-bottom: 1px dashed var(--line); }
+  .wx-hint { display: inline; }
+  .contact-list .wx .copy-btn { display: none; }  /* 电脑端改看二维码 */
+
+  .qr-pop {
+    display: block;
+    position: absolute;
+    left: -14px; bottom: calc(100% + 14px);
+    z-index: 30;
+    padding: 12px;
+    border-radius: 14px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    opacity: 0; visibility: hidden;
+    transform: translateY(6px);
+    transition: opacity .18s ease, transform .18s ease, visibility .18s;
+  }
+  /* 桥接浮层和文字之间的空隙，鼠标移过去不会闪 */
+  .qr-pop::before {
+    content: ''; position: absolute;
+    left: 0; right: 0; top: 100%; height: 14px;
+  }
+  /* 小三角 */
+  .qr-pop::after {
+    content: ''; position: absolute;
+    left: 30px; bottom: -6px;
+    width: 10px; height: 10px;
+    background: var(--card);
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    transform: rotate(45deg);
+  }
+  .qr-pop img { display: block; width: 132px; height: 132px; border-radius: 8px; background: #fff; }
+  .qr-pop em {
+    display: block; margin-top: 8px; text-align: center;
+    font-style: normal; font-size: 12px; color: var(--muted);
+  }
+  .contact-list .wx:hover .qr-pop,
+  .contact-list .wx:focus-within .qr-pop {
+    opacity: 1; visibility: visible; transform: translateY(0);
+  }
+}
+
+/* 还没放 wechat-qr.png 时自动降级：电脑端也显示复制按钮 */
+html.no-qr .qr-pop  { display: none !important; }
+html.no-qr .wx-hint { display: none !important; }
+html.no-qr .contact-list .wx .copy-btn { display: inline-block !important; }
+
+/* ===== 访问信息 ===== */
+.visitor { padding: 8px 24px 40px; }
+.visitor[hidden] { display: none; }
+.visitor-list {
+  list-style: none; margin: 0; padding: 16px 20px;
+  display: flex; flex-wrap: wrap; gap: 12px 28px;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-size: 13px;
+}
+.visitor-list li { display: flex; align-items: baseline; gap: 8px; }
+.visitor-list span { color: var(--muted); white-space: nowrap; }
+.visitor-list code {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 12.5px; padding: 3px 8px;
+  color: var(--fg); background: var(--card);
+  border: 1px solid var(--line); border-radius: 6px;
+  white-space: nowrap;
+}
+
+/* ===== 页脚 ===== */
+.footer { padding: 40px 24px 56px; text-align: center; color: var(--muted); font-size: 13.5px; }
+.footer p { margin: 0; }
+
+/* ===== 滚动淡入 ===== */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease; }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* ===== 移动端 ===== */
+@media (max-width: 560px) {
+  .nav-links { gap: 14px; font-size: 13.5px; }
+  .hero { padding: 60px 20px 52px; }
+  .section { padding: 44px 20px; }
+  .visitor { padding: 4px 20px 32px; }
+  .visitor-list { gap: 10px 20px; padding: 14px 16px; }
+}
