@@ -1,29 +1,39 @@
-/* ===== 主题变量（自动跟随系统深浅色） ===== */
+/* ===== 主题变量 =====
+   浅色：淡蓝底 + 黑字，界面色块用 #89C2FF
+   深色：#222222 底 + #BFFF00 字 */
 :root {
-  --bg: #ffffff;
-  --bg-soft: #f6f7f9;
-  --fg: #16181d;
-  --muted: #5c6370;
-  --line: #e6e8ec;
-  --card: #ffffff;
-  --accent: #2563eb;
-  --accent-soft: rgba(37, 99, 235, .08);
+  /* 浅色 */
+  --bg: #E6F7FF;          /* 页面底：很淡的蓝，不刺眼 */
+  --bg-soft: #89C2FF;     /* 界面色块：标签、技能、次级底 */
+  --fg: #222222;          /* 文字：黑 */
+  --muted: rgba(34, 34, 34, .62);
+  --line: rgba(34, 34, 34, .16);
+  --card: #ffffff;        /* 卡片：白，浮在淡蓝底上有层次 */
+  --accent: #89C2FF;      /* UI 主色块：按钮底、标签底 */
+  --accent-2: #5fa8e8;
+  --accent-soft: rgba(137, 194, 255, .45);
+  --on-accent: #222222;   /* 色块上的文字：黑 */
+  --grad-b: #2f6fb0;      /* 渐变收尾（浅色下要够深才看得清） */
   --radius: 16px;
-  --shadow: 0 1px 2px rgba(16, 24, 40, .04), 0 10px 30px rgba(16, 24, 40, .06);
+  --shadow: 0 1px 2px rgba(34, 34, 34, .06), 0 10px 30px rgba(34, 34, 34, .10);
   --maxw: 880px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0e1116;
-    --bg-soft: #141922;
-    --fg: #e9ecf1;
-    --muted: #98a2b3;
-    --line: #232a36;
-    --card: #151a23;
-    --accent: #79aaff;
-    --accent-soft: rgba(121, 170, 255, .12);
-    --shadow: 0 1px 2px rgba(0, 0, 0, .35), 0 10px 30px rgba(0, 0, 0, .4);
+    /* 深色：#222222 底 / #BFFF00 字 */
+    --bg: #222222;
+    --bg-soft: #2c2c2c;
+    --fg: #BFFF00;
+    --muted: rgba(191, 255, 0, .66);
+    --line: rgba(191, 255, 0, .20);
+    --card: #2a2a2a;
+    --accent: #BFFF00;
+    --accent-2: #e6ff7a;
+    --accent-soft: rgba(191, 255, 0, .14);
+    --on-accent: #222222;
+    --grad-b: #e6ff7a;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 30px rgba(0, 0, 0, .5);
   }
 }
 
@@ -42,7 +52,7 @@ body {
 
 .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
 
-a { color: var(--accent); text-decoration: none; }
+a { color: var(--fg); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 /* ===== 顶部导航 ===== */
@@ -64,13 +74,13 @@ a:hover { text-decoration: underline; }
   width: 76px; height: 76px; margin: 0 auto 22px;
   display: grid; place-items: center;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), #8b5cf6);
-  color: #fff; font-size: 30px; font-weight: 700;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: var(--on-accent); font-size: 30px; font-weight: 700;
   box-shadow: 0 10px 30px var(--accent-soft);
 }
 .hero-title { font-size: clamp(28px, 5vw, 44px); line-height: 1.25; margin: 0 0 16px; letter-spacing: -.5px; }
 .grad {
-  background: linear-gradient(120deg, var(--accent), #8b5cf6);
+  background: linear-gradient(120deg, var(--fg), var(--grad-b));
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 .hero-sub { max-width: 580px; margin: 0 auto 30px; color: var(--muted); font-size: 17px; }
@@ -82,7 +92,7 @@ a:hover { text-decoration: underline; }
   transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
 }
 .btn:hover { text-decoration: none; transform: translateY(-1px); }
-.btn.primary { background: var(--accent); color: #fff; box-shadow: 0 6px 18px var(--accent-soft); }
+.btn.primary { background: var(--accent); color: var(--on-accent); box-shadow: 0 6px 18px var(--accent-soft); }
 .btn.ghost { border-color: var(--line); color: var(--fg); background: var(--bg); }
 .btn.ghost:hover { background: var(--bg-soft); }
 
@@ -110,7 +120,7 @@ a:hover { text-decoration: underline; }
 .card p { color: var(--muted); font-size: 14.5px; margin: 0 0 16px; }
 .tag {
   flex: none; font-size: 12px; padding: 3px 9px; border-radius: 999px;
-  background: var(--accent-soft); color: var(--accent); font-weight: 600;
+  background: var(--accent-soft); color: var(--fg); font-weight: 600;
 }
 .links { display: flex; gap: 16px; font-size: 14px; font-weight: 600; }
 
@@ -159,7 +169,7 @@ a:hover { text-decoration: underline; }
   transition: color .15s ease, border-color .15s ease;
 }
 .copy-btn:hover { color: var(--fg); border-color: var(--accent); }
-.copy-btn.done  { color: var(--accent); border-color: var(--accent); }
+.copy-btn.done  { color: var(--fg); border-color: var(--accent); }
 
 /* 二维码浮层：默认完全隐藏（手机端不需要） */
 .qr-pop { display: none; }
