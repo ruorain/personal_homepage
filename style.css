@@ -4,7 +4,7 @@
 :root {
   /* 浅色 */
   --bg: #E6F7FF;          /* 页面底：很淡的蓝，不刺眼 */
-  --bg-soft: #89C2FF;     /* 界面色块：标签、技能、次级底 */
+  --bg-soft: #CDE9FF;     /* 界面色块：统一浅蓝，和图一的标签一致 */
   --fg: #222222;          /* 文字：黑 */
   --muted: rgba(34, 34, 34, .62);
   --line: rgba(34, 34, 34, .16);
@@ -19,9 +19,9 @@
   --maxw: 880px;
 }
 
+/* 深色变量：系统偏好（用户没手动选过时生效）+ 手动选择，两处共用同一套值 */
 @media (prefers-color-scheme: dark) {
-  :root {
-    /* 深色：#222222 底 / #BFFF00 字 */
+  :root:not([data-theme]) {
     --bg: #222222;
     --bg-soft: #2c2c2c;
     --fg: #BFFF00;
@@ -35,6 +35,21 @@
     --grad-b: #e6ff7a;
     --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 30px rgba(0, 0, 0, .5);
   }
+}
+
+:root[data-theme="dark"] {
+    --bg: #222222;
+    --bg-soft: #2c2c2c;
+    --fg: #BFFF00;
+    --muted: rgba(191, 255, 0, .66);
+    --line: rgba(191, 255, 0, .20);
+    --card: #2a2a2a;
+    --accent: #BFFF00;
+    --accent-2: #e6ff7a;
+    --accent-soft: rgba(191, 255, 0, .14);
+    --on-accent: #222222;
+    --grad-b: #e6ff7a;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 30px rgba(0, 0, 0, .5);
 }
 
 * { box-sizing: border-box; }
@@ -260,9 +275,62 @@ html.no-qr .contact-list .wx .copy-btn { display: inline-block !important; }
 
 /* ===== 移动端 ===== */
 @media (max-width: 560px) {
-  .nav-links { gap: 14px; font-size: 13.5px; }
+  /* 导航栏多了切换按钮，窄屏要收紧，否则会溢出 */
+  .brand { font-size: 14px; }
+  .nav-links { gap: 11px; font-size: 12.5px; }
+  .theme-toggle { width: 30px; height: 30px; margin-left: 9px; }
+  .theme-toggle svg { width: 15px; height: 15px; }
   .hero { padding: 60px 20px 52px; }
   .section { padding: 44px 20px; }
   .visitor { padding: 4px 20px 32px; }
   .visitor-list { gap: 10px 20px; padding: 14px 16px; }
+}
+
+
+/* ===== 深浅色切换按钮 ===== */
+.nav-links { margin-left: auto; }
+
+.theme-toggle {
+  position: relative; flex: none;
+  width: 36px; height: 36px; margin-left: 14px;
+  display: grid; place-items: center;
+  padding: 0; cursor: pointer;
+  border: 1px solid var(--line); border-radius: 999px;
+  background: transparent; color: var(--fg);
+  transition: border-color .2s ease, background-color .2s ease;
+}
+.theme-toggle:hover { border-color: var(--accent); background: var(--bg-soft); }
+
+.theme-toggle svg {
+  position: absolute; width: 18px; height: 18px;
+  transition: opacity .35s ease, transform .5s cubic-bezier(.4, 0, .2, 1);
+}
+.tt-moon { opacity: 1; transform: rotate(0deg) scale(1); }
+.tt-sun  { opacity: 0; transform: rotate(-90deg) scale(.4); }
+html[data-theme="dark"] .tt-moon { opacity: 0; transform: rotate(90deg) scale(.4); }
+html[data-theme="dark"] .tt-sun  { opacity: 1; transform: rotate(0deg) scale(1); }
+
+/* 切换瞬间才加这个类，给全站加过渡；平时不加，免得干扰 hover 效果 */
+html.theme-switching,
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after {
+  transition: background-color .45s ease, color .45s ease,
+              border-color .45s ease, fill .45s ease, box-shadow .45s ease !important;
+}
+
+/* 圆形揭示动画（View Transitions，Chrome / Edge 支持） */
+::view-transition-old(root),
+::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-old(root) { z-index: 1; }
+::view-transition-new(root) { z-index: 2; animation: vt-circle .55s ease-out; }
+@keyframes vt-circle {
+  from { clip-path: circle(0% at var(--vt-x, 92%) var(--vt-y, 4%)); }
+  to   { clip-path: circle(150% at var(--vt-x, 92%) var(--vt-y, 4%)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-new(root) { animation: none; }
+  html.theme-switching * { transition: none !important; }
+  .theme-toggle svg { transition: none; }
 }
